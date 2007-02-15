@@ -57,13 +57,14 @@ def main():
 			print "Looking up: " + lookup
 		try:
 			contact = account.getContacts().getContactListByName(lookup)
-			contact_pattern = re.compile('([^ ]*) ([^@]*) ([^ ]*)')
+			contact_pattern = re.compile('([^ ]*) ([^@ ]*) ([^ ]*)')
 			if contact != False:
 				if VERBOSE:
 					print "Results:"
 				for i in range(len(contact)):
 					contact_match = contact_pattern.match(str(contact[i]))
-					print contact_match.group(3) + "\t" + contact_match.group(2)
+					if contact_match.group(3) != "":
+						print contact_match.group(3) + "\t" + contact_match.group(2)
 			else:
 				print "No contacts were found."
 		except:

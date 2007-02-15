@@ -1,0 +1,38 @@
+gmailcontacts.py - search for contacts in a Gmail account
+
+Author:
+Angel Olivera - <redondos@aolivera.com.ar>
+
+Requirements:
+* Python
+* libgmail module - http://libgmail.sourceforge.net
+Optional: libgmail-getContactListByName_insensitive.patch, a one-line 
+patch for the library to allow case-insensitive searches.
+
+Download:
+http://www.aolivera.com.ar/src/python/gmailcontacts/
+
+The script will look for a pair of credentials to use to log-in in this order:
+- Command line arguments: -u|-p,
+- environment variables: GMAILUSER|GMAILPASS, or
+- given to the script itself interactively.
+
+There's also a '-v' option that shows a bit more of information in case 
+there's anything not working.
+
+The output format is in the form "ADDRESS\tFULL NAME", according to mutt's
+query_command's requirements.
+
+Important: remember to set the username and password if you're going to use
+the script with mutt, since query_command does not let you input any data.
+
+Mutt macros example, with the disadvantage of not being able to choose which one 
+to use with <complete-query>:
+
+macro generic Q '<enter-command> set query_command="~/bin/muttquery.py %s"<enter>\
+		<query>' 'Query KAddressBook'
+macro index ,q '<enter-command> set query_command="~/bin/gmailcontacts.py -u redondos %s"<enter>\
+		<query>' 'Query Gmail contacts'
+
+Bugs:
+Queries take too much time, maybe the results should be cached.

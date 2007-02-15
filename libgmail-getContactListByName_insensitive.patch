@@ -1,11 +1,11 @@
---- libgmail.py	2007-02-10 18:45:48.000000000 -0300
-+++ /usr/lib/python2.4/site-packages/libgmail.py	2007-02-10 14:55:01.000000000 -0300
+--- /usr/lib/python2.4/site-packages/libgmail.py	2007-02-10 14:55:01.000000000 -0300
++++ libgmail.py	2007-02-10 18:45:48.000000000 -0300
 @@ -1111,7 +1111,7 @@
          """
          nameList = []
          for entry in self.contactList:
--            if entry.getName().lower().find(name.lower()) != -1:
-+            if entry.getName() == name:
+-            if entry.getName() == name:
++            if entry.getName().lower().find(name.lower()) != -1:
                  nameList.append(entry)
          return nameList
      def getContactListByEmail(self, email):

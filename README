@@ -36,4 +36,3 @@ macro index ,q '<enter-command> set query_command="~/bin/gmailcontacts.py -u red
 
 Bugs:
 Queries take too much time, maybe the results should be cached.
-Single-worded contacts make regexp explode.

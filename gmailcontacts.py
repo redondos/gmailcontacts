@@ -56,15 +56,24 @@ def main():
 		if VERBOSE:
 			print "Looking up: " + lookup
 		try:
-			contact = account.getContacts().getContactListByName(lookup)
-			contact_pattern = re.compile('([^ ]*) ([^@ ]*) ([^ ]*)')
-			if contact != False:
+			contacts = account.getContacts().getContactListByName(lookup)
+			contacts_pattern = re.compile('[^ ]* ([^@]*) .*')
+			contact_match_pattern = re.compile('[^ ,]*@[^ ,]*.[^ ,]*')
+			if contacts != False:
 				if VERBOSE:
 					print "Results:"
-				for i in range(len(contact)):
-					contact_match = contact_pattern.match(str(contact[i]))
-					if contact_match.group(3) != "":
-						print contact_match.group(3) + "\t" + contact_match.group(2)
+				for i in range(len(contacts)):
+					contact_name = contacts_pattern.match(str(contacts[i]))
+					contact_item = str(contacts[i]).split()
+					# Name empty? No way, Gmail doesn't let us.
+					# if contact_item[1] != "":
+					c=0
+					for j in range(len(contact_item)):
+						# print contact_item[j]
+						contact_match = contact_match_pattern.match(contact_item[j])
+						if contact_match != None:
+							print contact_match.group() + "\t" + contact_name.group(1)
+							c = c+1
 			else:
 				print "No contacts were found."
 		except:
